@@ -1,58 +1,30 @@
 import React, { useState, useEffect } from "react";
 import "./index.css";
+
 export default function Index() {
-  const [count, setCount] = useState(0);
-  const [data, setData] = useState([]);
-  //dijalankan 1 kali
+  let [dogImage, setDogImage] = useState([]);
+
   useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    let mounting = true;
+    getAPI().then((data) => {
+      if (mounting) {
+        setDogImage(data.message);
+      }
+      return () => (mounting = false);
+    });
   }, []);
-  //dijalankan terus setiap ada perubahan count
-  useEffect(() => {
-    if (count > 0) {
-      alert("component will update & count ${count}");
-    }
-  }, [count]);
-  //dijalankan terus menerus
-  useEffect(() => {
-    console.log("spam console kuy");
-  });
-  const countUp = () => {
-    setCount(count + 1);
-  };
-  const countDown = () => {
-    setCount(count - 1);
-  };
+
   return (
     <div className="Main">
-      <p className="Text"> Learn useEffect</p>
-      <p>KELOMPOKXX</p>
-      <ul>
-        {data.slice(0, 10).map((value) => (
-          <li key={value.id}>{value.title}</li>
+      {dogImage &&
+        dogImage.map((dog) => (
+          <img width={"200px"} height={"200px"} src={dog}></img>
         ))}
-      </ul>
-      <p className="Text">{count}</p>
-      <div className="ViewButton">
-        <div className="ViewButton2">
-          <button className="Button" onClick={countUp}>
-            Up
-          </button>
-        </div>
-        <div className="ViewButton1">
-          <button className="Button" onClick={countDown}>
-            Down
-          </button>
-        </div>
-      </div>
     </div>
+  );
+}
+function getAPI() {
+  return fetch("https://dog.ceo/api/breeds/image/random/3").then((response) =>
+    response.json()
   );
 }
