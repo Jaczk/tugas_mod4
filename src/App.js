@@ -31,7 +31,7 @@ export default function App() {
           <Route path="/" exact element={<Counter />} />
           <Route path="/effect" exact element={<Effect />} />
           <Route path="/context" exact element={<Context />} />
-          <Route path="/inputType" exact element={<InputType />} />
+          <Route path="/input" exact element={<InputType />} />
         </Routes>
       </div>
     </Router>
