@@ -24,7 +24,7 @@ export default function Index() {
   );
 }
 function getAPI() {
-  return fetch("https://dog.ceo/api/breeds/image/random/3").then((response) =>
+  return fetch("https://dog.ceo/api/breeds/image/random/1").then((response) =>
     response.json()
   );
 }
